@@ -1,4 +1,4 @@
-//import { resetLoginForm } from "./loginForm.js"
+import { resetLoginForm } from "./loginForm.js"
 //import { resetSignupForm } from "./signupForm.js"
 //import { getMyTrips, clearTrips } from "./myTrips.js"
 
@@ -10,25 +10,58 @@ export const setCurrentUser = user => {
   }
 }
 
-//export const clearCurrentUser = () => {
-  //return {
-    //type: "CLEAR_CURRENT_USER"
-  //}
-//}
+export const clearCurrentUser = () => {
+  return {
+    type: "CLEAR_CURRENT_USER"
+  }
+}
 
 // asynchronous action creators
 export const login = credentials => {
-
+    console.log("credentials are", credentials)
   return dispatch => {
-    return fetch("http://localhost:3001/api/v1/login", {
+    return fetch("http://localhost:3000/api/v1/login", {
      
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({username: 'Suzy Q', password: "password" })
+      body: JSON.stringify(credentials)
     })
+    .then(r => r.json())
+    .then(user => {
+        if (user.error) {
+          alert(user.error)
+        } else {
+          dispatch(setCurrentUser(user))
+          //dispatch(getMyTrips())
+          dispatch(resetLoginForm())
+          //history.push('/')
+        }
+      })
+
+    .catch(console.log)
 }
 }
 
-
+export const getCurrentUser = () => {
+  return dispatch => {
+    return fetch("http://localhost:3001/api/v1/get_current_user", {
+      credentials: "include",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(r => r.json())
+      .then(response => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          dispatch(setCurrentUser(response.data))
+          //dispatch(getMyTrips())
+        }
+      })
+      .catch(console.log)
+  }
+}
