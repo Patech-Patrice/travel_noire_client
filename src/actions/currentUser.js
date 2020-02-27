@@ -10,6 +10,7 @@ export const setCurrentUser = user => {
   }
 }
 
+//clears out user in client
 export const clearCurrentUser = () => {
   return {
     type: "CLEAR_CURRENT_USER"
@@ -21,10 +22,12 @@ export const login = credentials => {
     console.log("credentials are", credentials)
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/login", {
-     
+     //credentials: "include",
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "http://localhost:3000"
       },
       body: JSON.stringify(credentials)
     })
@@ -42,6 +45,17 @@ export const login = credentials => {
 
     .catch(console.log)
 }
+}
+
+export const logout = () => {
+  return dispatch => {
+    dispatch(clearCurrentUser())
+    //dispatch(clearTrips())
+    return fetch('http://localhost:3000/api/v1/logout', {
+      //credentials: "include",
+      method: "DELETE"
+    })
+  }
 }
 
 export const getCurrentUser = () => {
