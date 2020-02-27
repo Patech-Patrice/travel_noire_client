@@ -7,6 +7,7 @@ import { getCurrentUser } from "./actions/currentUser.js";
 import Logout from "./components/Logout.js";
 //import Button from 'react-bootstrap/Button';
 import NavBar from './components/NavBar.js'
+import MainContainer from './components/MainContainer.js'
 
 
 class App extends React.Component {
@@ -17,21 +18,23 @@ class App extends React.Component {
   render(){
     return (
       //this.props.currentUser ? <Logout/> : <Login/>
+      <div className="App">
       <NavBar/>
-      
+      <MainContainer />
+      </div>
       
     );
   }
   
 }
 
-const mapStateToProps = ({ currentUser }) => {
-  return {
-    currentUser 
-    //trips: state.myTrips
-  }
-}
+//const mapStateToProps = ({ currentUser }) => {
+  //return {
+    //currentUser 
+    ///trips: state.myTrips
+  //}
+//}
 
 
-//export default connect(null, { getCurrentUser })(App);
-export default connect(mapStateToProps, { getCurrentUser })(App);
+export default connect(null, { getCurrentUser })(App);
+//export default connect(mapStateToProps, { getCurrentUser })(App);
