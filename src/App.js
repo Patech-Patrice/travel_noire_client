@@ -1,9 +1,12 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from "./components/Login.js";
 import { connect } from 'react-redux';
 import { getCurrentUser } from "./actions/currentUser.js";
 import Logout from "./components/Logout.js";
+//import Button from 'react-bootstrap/Button';
+import NavBar from './components/NavBar.js'
 
 
 class App extends React.Component {
@@ -13,7 +16,10 @@ class App extends React.Component {
   }
   render(){
     return (
-      this.props.currentUser ? <Logout/> : <Login/>
+      //this.props.currentUser ? <Logout/> : <Login/>
+      <NavBar/>
+      
+      
     );
   }
   
